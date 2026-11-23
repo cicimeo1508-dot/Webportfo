@@ -16,6 +16,8 @@ export const INITIAL_CLIENT_LINKS: ClientShareLink[] = [
     welcomeMessage:
       "Chào anh/chị, đây là danh sách các dự án video Ẩm thực, Nhà hàng & Rooftop Dining do Gia Huy trực tiếp đảm nhận quay dựng và chỉnh màu. Mời anh/chị bấm vào từng dự án để xem bản Master chất lượng cao và các phân cảnh Highlight.",
     projectIds: [
+      "proj-cccp-nha-hang-anh-long",
+      "proj-vuon-mong-mo-anh-thien",
       "proj-nanimo-restaurant-chi-kim-anh",
       "proj-france-restaurant-jason",
       "proj-94farm-anh-duy",
@@ -46,6 +48,10 @@ export const INITIAL_CLIENT_LINKS: ClientShareLink[] = [
     welcomeMessage:
       "Tuyển tập các video xây dựng thương hiệu chuyên gia (Talking Head Motion UI), TVC Trang sức Macro 4K và chuỗi video Thẩm mỹ viện / Bác sĩ giúp tối ưu tỷ lệ giữ chân khách hàng.",
     projectIds: [
+      "proj-brief-peter",
+      "proj-aquamen-care-center-anh-duong",
+      "proj-shop-sp-anh-tien",
+      "proj-su-tich-cay-neu-film-anh-thien",
       "proj-mexo-anh-trong",
       "proj-quick-fish-anh-huy",
       "proj-tmv-thanh-huong",

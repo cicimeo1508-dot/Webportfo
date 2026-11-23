@@ -30,6 +30,29 @@ function getMimeType(filename: string): string {
   }
 }
 
+function findFileInDirUnicodeSafe(dir: string, targetName: string): string | null {
+  if (!fs.existsSync(dir)) return null;
+  const directPath = path.join(dir, targetName);
+  if (fs.existsSync(directPath) && fs.statSync(directPath).isFile()) {
+    return directPath;
+  }
+
+  // So sánh chuẩn hóa Unicode NFC / NFD (tránh lỗi dấu tiếng Việt tổ hợp vs dựng sẵn trên macOS/Windows)
+  const targetNfc = targetName.normalize("NFC").toLowerCase();
+  try {
+    const entries = fs.readdirSync(dir);
+    for (const entry of entries) {
+      if (entry.normalize("NFC").toLowerCase() === targetNfc) {
+        const full = path.join(dir, entry);
+        if (fs.statSync(full).isFile()) return full;
+      }
+    }
+  } catch {
+    // ignore
+  }
+  return null;
+}
+
 function resolveMediaPath(segments: string[]): string | null {
   const safeSegments = segments.map((s) => path.basename(decodeURIComponent(s)));
 
@@ -39,16 +62,15 @@ function resolveMediaPath(segments: string[]): string | null {
     return uploadsPath;
   }
 
-  // 2. Hỗ trợ đọc trực tiếp từ ổ đĩa nguồn I:\PORT và I:\PORT\THEM của Gia Huy
-  const portDrivePath = path.join("I:\\PORT", ...safeSegments);
-  if (fs.existsSync(portDrivePath) && fs.statSync(portDrivePath).isFile()) {
-    return portDrivePath;
-  }
+  const lastSegment = safeSegments[safeSegments.length - 1];
+  if (!lastSegment) return null;
 
-  const portThemDrivePath = path.join("I:\\PORT\\THEM", ...safeSegments);
-  if (fs.existsSync(portThemDrivePath) && fs.statSync(portThemDrivePath).isFile()) {
-    return portThemDrivePath;
-  }
+  // 2. Hỗ trợ đọc trực tiếp từ I:\PORT và I:\PORT\THEM (hỗ trợ cả Unicode NFC & NFD)
+  const fromPort = findFileInDirUnicodeSafe("I:\\PORT", lastSegment);
+  if (fromPort) return fromPort;
+
+  const fromPortThem = findFileInDirUnicodeSafe("I:\\PORT\\THEM", lastSegment);
+  if (fromPortThem) return fromPortThem;
 
   return null;
 }

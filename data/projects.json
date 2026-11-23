@@ -1,5 +1,192 @@
 [
   {
+    "id": "proj-cccp-nha-hang-anh-long",
+    "title": "Nhà Hàng Nga CCCP — Tinh Hoa Ẩm Thực Nga Giữa Lòng Sài Gòn",
+    "client": "Anh Long (CCCP Nhà Hàng)",
+    "year": "2026",
+    "category": "Ẩm Thực & Lifestyle",
+    "aspectRatio": "9:16",
+    "featured": false,
+    "description": "Video review & quảng bá trải nghiệm ẩm thực Nga truyền thống (9:16, 2.5K) cho Nhà hàng CCCP của Anh Long nhân dịp lễ 30/4. Tái hiện không gian văn hóa Nga ấm cúng với họa tiết búp bê Matryoshka, thực đơn Kotlet Cá Tuyết, súp củ dền đỏ Borscht, salad Nga Shuba nhiều tầng và bánh mì đen truyền thống, kết hợp phụ đề nổi bật.",
+    "thumbnailUrl": "/uploads/port-stills/cccp-nha-hang-anh-long/frame-3.jpg",
+    "videoUrl": "/uploads/CCCP Nhà hàng - Anh Long.mp4",
+    "gallery": [
+      "/uploads/port-stills/cccp-nha-hang-anh-long/frame-3.jpg",
+      "/uploads/port-stills/cccp-nha-hang-anh-long/frame-4.jpg",
+      "/uploads/port-stills/cccp-nha-hang-anh-long/frame-2.jpg",
+      "/uploads/port-stills/cccp-nha-hang-anh-long/frame-5.jpg",
+      "/uploads/port-stills/cccp-nha-hang-anh-long/frame-1.jpg",
+      "/uploads/port-stills/cccp-nha-hang-anh-long/frame-6.jpg"
+    ],
+    "deliverables": [
+      "2.5K Vertical Reel",
+      "Warm Russian Vintage Grade",
+      "Dynamic Captions"
+    ],
+    "softwareUsed": [
+      "Pr",
+      "Dv",
+      "Ae"
+    ],
+    "createdAt": "2026-11-23T16:13:26.000Z"
+  },
+  {
+    "id": "proj-aquamen-care-center-anh-duong",
+    "title": "Aqua Men Care Center — Đẳng Cấp Chăm Sóc Phái Mạnh 4K",
+    "client": "Anh Dương (Aqua Men Care Center)",
+    "year": "2026",
+    "category": "Thẩm Mỹ & Healthcare",
+    "aspectRatio": "9:16",
+    "featured": false,
+    "description": "Video thương hiệu 4K (9:16) cho hệ thống chăm sóc nam giới cao cấp Aqua Men Care Center cùng Anh Dương. Mở đầu bằng hiệu ứng Light Flare cam ấm áp, dẫn dắt qua không gian salon sang trọng tông đỏ - trắng đặc trưng cùng phụ đề Kinetic Typography phát sáng hiện đại.",
+    "thumbnailUrl": "/uploads/port-stills/aquamen-care-center-anh-duong/frame-6.jpg",
+    "videoUrl": "/uploads/AQUAMEN CARE CENTER - ANH DƯƠNG.mp4",
+    "gallery": [
+      "/uploads/port-stills/aquamen-care-center-anh-duong/frame-6.jpg",
+      "/uploads/port-stills/aquamen-care-center-anh-duong/frame-3.jpg",
+      "/uploads/port-stills/aquamen-care-center-anh-duong/frame-2.jpg",
+      "/uploads/port-stills/aquamen-care-center-anh-duong/frame-5.jpg",
+      "/uploads/port-stills/aquamen-care-center-anh-duong/frame-4.jpg",
+      "/uploads/port-stills/aquamen-care-center-anh-duong/frame-1.jpg"
+    ],
+    "deliverables": [
+      "4K Brand Commercial",
+      "Glow Kinetic Typography",
+      "Film Flare Transitions"
+    ],
+    "softwareUsed": [
+      "Pr",
+      "Ae",
+      "Dv"
+    ],
+    "createdAt": "2026-11-23T16:13:16.000Z"
+  },
+  {
+    "id": "proj-brief-peter",
+    "title": "Historical Motion Documentary — 1966 Nigeria Crisis (Vox Style)",
+    "client": "Peter (International Documentary)",
+    "year": "2026",
+    "category": "Talking Head & Motion UI",
+    "aspectRatio": "16:9",
+    "featured": true,
+    "description": "Phim tài liệu đồ họa chuyển động (Motion Documentary Essay 16:9) sản xuất cho khách hàng quốc tế Peter theo phong cách Vox / Johnny Harris. Ứng dụng kỹ thuật 3D Camera Tracking trên nền lưới Blueprint, tách lớp ảnh tư liệu lịch sử đa chiều (Parallax Collage), hiệu ứng khung hình CRT cổ điển và typography báo chí sắc bén.",
+    "thumbnailUrl": "/uploads/port-stills/brief-peter/frame-2.jpg",
+    "videoUrl": "/uploads/BRIEF - PETER.mp4",
+    "gallery": [
+      "/uploads/port-stills/brief-peter/frame-2.jpg",
+      "/uploads/port-stills/brief-peter/frame-5.jpg",
+      "/uploads/port-stills/brief-peter/frame-1.jpg",
+      "/uploads/port-stills/brief-peter/frame-6.jpg",
+      "/uploads/port-stills/brief-peter/frame-3.jpg",
+      "/uploads/port-stills/brief-peter/frame-4.jpg"
+    ],
+    "deliverables": [
+      "Full HD Motion Documentary",
+      "3D Parallax Collage",
+      "Blueprint Grid VFX"
+    ],
+    "softwareUsed": [
+      "Ae",
+      "Pr",
+      "Ps"
+    ],
+    "createdAt": "2026-11-23T16:10:21.000Z"
+  },
+  {
+    "id": "proj-su-tich-cay-neu-film-anh-thien",
+    "title": "Phim Ngắn 'Sự Tích Cây Nêu Ngày Tết' — Live-Action & 2D Animation",
+    "client": "Anh Thiện",
+    "year": "2026",
+    "category": "Phim Ngắn & Hoạt Hình 2D",
+    "aspectRatio": "16:9",
+    "featured": true,
+    "description": "Phim ngắn văn hóa dân gian dài gần 6 phút (16:9) kết hợp giữa cảnh quay thực tế (Live-Action) và hoạt hình minh họa dân gian 2D sống động. Kể lại câu chuyện truyền thống ngày Tết nguyên đán từ lời kể của bà bên hiên nhà tre đến phân cảnh gia đình sum vầy dựng cây nêu và treo câu đối đỏ 'Gia Môn Khang Thái'.",
+    "thumbnailUrl": "/uploads/port-stills/su-tich-cay-neu-film-anh-thien/frame-6.jpg",
+    "videoUrl": "/uploads/SU TICH CAY NEU FILM - Anh THIỆN.mp4",
+    "gallery": [
+      "/uploads/port-stills/su-tich-cay-neu-film-anh-thien/frame-6.jpg",
+      "/uploads/port-stills/su-tich-cay-neu-film-anh-thien/frame-3.jpg",
+      "/uploads/port-stills/su-tich-cay-neu-film-anh-thien/frame-1.jpg",
+      "/uploads/port-stills/su-tich-cay-neu-film-anh-thien/frame-2.jpg",
+      "/uploads/port-stills/su-tich-cay-neu-film-anh-thien/frame-4.jpg",
+      "/uploads/port-stills/su-tich-cay-neu-film-anh-thien/frame-5.jpg"
+    ],
+    "deliverables": [
+      "Full HD Short Film (6 Mins)",
+      "2D Folklore Animation",
+      "Narrative Sound Mix"
+    ],
+    "softwareUsed": [
+      "Pr",
+      "Ae",
+      "Dv",
+      "Ps"
+    ],
+    "createdAt": "2026-11-23T16:09:33.000Z"
+  },
+  {
+    "id": "proj-shop-sp-anh-tien",
+    "title": "Menswear Lookbook 4K — All-Black Smart Casual Collection",
+    "client": "Anh Tiến (Fashion Shop)",
+    "year": "2026",
+    "category": "TVC Thương Mại & Sản Phẩm",
+    "aspectRatio": "9:16",
+    "featured": false,
+    "description": "Video Lookbook thời trang nam 4K (9:16) cho thương hiệu của Anh Tiến. Khai thác ánh sáng tự nhiên ngược sáng mềm mại (Soft Backlight) bên khung cửa gỗ kiến trúc cao cấp, kết hợp nhịp dựng mượt mà và chỉnh màu tôn phom dáng lịch lãm của bộ trang phục sơ mi đen.",
+    "thumbnailUrl": "/uploads/port-stills/shop-sp-anh-tien/frame-2.jpg",
+    "videoUrl": "/uploads/SHOP SP - ANH TIẾN.mp4",
+    "gallery": [
+      "/uploads/port-stills/shop-sp-anh-tien/frame-2.jpg",
+      "/uploads/port-stills/shop-sp-anh-tien/frame-5.jpg",
+      "/uploads/port-stills/shop-sp-anh-tien/frame-1.jpg",
+      "/uploads/port-stills/shop-sp-anh-tien/frame-6.jpg",
+      "/uploads/port-stills/shop-sp-anh-tien/frame-3.jpg",
+      "/uploads/port-stills/shop-sp-anh-tien/frame-4.jpg"
+    ],
+    "deliverables": [
+      "4K Fashion Lookbook",
+      "Natural Softlight Grade",
+      "Smooth Speed Ramp"
+    ],
+    "softwareUsed": [
+      "Pr",
+      "Dv",
+      "Lr"
+    ],
+    "createdAt": "2026-11-23T16:07:28.000Z"
+  },
+  {
+    "id": "proj-vuon-mong-mo-anh-thien",
+    "title": "Vườn Mộng Mơ — Không Gian Ẩm Thực Sinh Thái & Sân Vườn",
+    "client": "Anh Thiện (Vườn Mộng Mơ)",
+    "year": "2026",
+    "category": "Ẩm Thực & Lifestyle",
+    "aspectRatio": "9:16",
+    "featured": false,
+    "description": "Video giới thiệu trải nghiệm ẩm thực sinh thái tại Vườn Mộng Mơ của Anh Thiện. Dựng nhịp điệu tươi mới từ khâu sơ chế nguyên liệu tươi sống trong bếp, khoảnh khắc rưới sốt salad rau xanh giòn mát đến không gian chòi gỗ sân vườn thoáng đãng và bàn tiệc hấp dẫn.",
+    "thumbnailUrl": "/uploads/port-stills/vuon-mong-mo-anh-thien/frame-5.jpg",
+    "videoUrl": "/uploads/Vườn mộng mơ - Anh Thiện.mp4",
+    "gallery": [
+      "/uploads/port-stills/vuon-mong-mo-anh-thien/frame-5.jpg",
+      "/uploads/port-stills/vuon-mong-mo-anh-thien/frame-4.jpg",
+      "/uploads/port-stills/vuon-mong-mo-anh-thien/frame-6.jpg",
+      "/uploads/port-stills/vuon-mong-mo-anh-thien/frame-2.jpg",
+      "/uploads/port-stills/vuon-mong-mo-anh-thien/frame-3.jpg",
+      "/uploads/port-stills/vuon-mong-mo-anh-thien/frame-1.jpg"
+    ],
+    "deliverables": [
+      "9:16 Culinary & Garden Reel",
+      "Fresh Greens Color Grade",
+      "Multi-Scene Storytelling"
+    ],
+    "softwareUsed": [
+      "Pr",
+      "Dv",
+      "Lr"
+    ],
+    "createdAt": "2026-11-23T16:05:00.000Z"
+  },
+  {
     "id": "proj-nanimo-restaurant-chi-kim-anh",
     "title": "Nanaimo Bistro & Oyster Bar — Fine Dining & Seafood Experience",
     "client": "Chị Kim Anh (Nanimo Restaurant)",

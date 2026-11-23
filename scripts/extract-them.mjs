@@ -6,14 +6,31 @@ const FFMPEG = "C:\\Program Files\\AutoSub Typo for CapCut\\resources\\tools\\ff
 const DIR = "I:\\PORT\\THEM";
 const OUT_BASE = "f:\\AI\\public\\uploads\\port-stills";
 
-const FILES = [
-  { file: "France Restaurant - Jason.mp4", slug: "france-restaurant-jason" },
-  { file: "Nanimo Restaurant - Chị Kim Anh.mp4", slug: "nanimo-restaurant-chi-kim-anh" },
-];
+function toSlug(filename) {
+  return filename
+    .replace(/\.mp4$/i, "")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/đ/gi, "d")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
+}
 
-for (const item of FILES) {
-  const fullPath = path.join(DIR, item.file);
-  const outDir = path.join(OUT_BASE, item.slug);
+const allFiles = fs
+  .readdirSync(DIR)
+  .filter((f) => f.toLowerCase().endsWith(".mp4"));
+
+for (const file of allFiles) {
+  const slug = toSlug(file);
+  const fullPath = path.join(DIR, file);
+  const outDir = path.join(OUT_BASE, slug);
+
+  if (fs.existsSync(path.join(outDir, "contact-sheet.jpg"))) {
+    console.log(`[LOG BỎ QUA] Đã trích xuất trước đó: ${file} (${slug})`);
+    continue;
+  }
+
   fs.mkdirSync(outDir, { recursive: true });
 
   let stderr = "";
@@ -28,10 +45,10 @@ for (const item of FILES) {
     ? parseInt(durMatch[1], 10) * 3600 +
       parseInt(durMatch[2], 10) * 60 +
       parseFloat(durMatch[3])
-    : 25;
+    : 30;
   const resMatch = stderr.match(/Stream #.*Video:.*?\s(\d{3,5})x(\d{3,5})/);
-  let width = resMatch ? parseInt(resMatch[1], 10) : 1080;
-  let height = resMatch ? parseInt(resMatch[2], 10) : 1920;
+  let width = resMatch ? parseInt(resMatch[1], 10) : 1920;
+  let height = resMatch ? parseInt(resMatch[2], 10) : 1080;
 
   const rotMatch =
     stderr.match(/rotate\s*:\s*(\d+)/) || stderr.match(/rotation of (-?\d+)/);
@@ -47,7 +64,7 @@ for (const item of FILES) {
   const aspectRatio = height > width ? "9:16" : "16:9";
 
   console.log(
-    `\x1b[36m[LOG PHÂN TÍCH VIDEO MỚI] ${item.file} -> Độ phân giải: ${width}x${height} (${aspectRatio}), Thời lượng: ${durationSec.toFixed(1)}s\x1b[0m`
+    `\x1b[36m[LOG PHÂN TÍCH VIDEO MỚI] ${file} (slug: ${slug}) -> Độ phân giải: ${width}x${height} (${aspectRatio}), Thời lượng: ${durationSec.toFixed(1)}s\x1b[0m`
   );
 
   const pcts = [0.12, 0.27, 0.42, 0.57, 0.72, 0.86];
@@ -98,6 +115,6 @@ for (const item of FILES) {
     { stdio: "ignore" }
   );
   console.log(
-    `\x1b[32m[LOG TRÍCH XUẤT HIGHLIGHT] Đã cắt 6 khung hình chất lượng cao cho "${item.file}" tại ${outDir}\x1b[0m`
+    `\x1b[32m[LOG TRÍCH XUẤT HIGHLIGHT] Đã cắt 6 khung hình chất lượng cao cho "${file}" tại ${outDir}\x1b[0m`
   );
 }
