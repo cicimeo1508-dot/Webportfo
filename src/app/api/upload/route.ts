@@ -35,9 +35,9 @@ export async function POST(request: NextRequest) {
       }
       const filePath = path.join(uploadsDir, safeName);
       fs.writeFileSync(filePath, buffer);
-      console.log(`[LOG UPLOAD] Đã lưu file tải lên vào /uploads/${safeName}`);
+      console.log(`[LOG UPLOAD] Đã lưu file tải lên vào /api/media/${safeName}`);
       return NextResponse.json({
-        url: `/uploads/${safeName}`,
+        url: `/api/media/${safeName}`,
         filename: safeName,
       });
     } catch {

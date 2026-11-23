@@ -142,30 +142,27 @@
   },
   {
     "id": "proj-highlands-heritage-doc",
-    "title": "Hương Vị Nguyên Bản — Visual Documentary",
-    "client": "Highlands Reserve",
+    "title": "BS LAN",
+    "client": "BS Hoàng Lan",
     "year": "2025",
-    "category": "Phim Tài Liệu & Color Grading",
-    "aspectRatio": "16:9",
+    "category": "Healthcare",
+    "aspectRatio": "9:16",
     "featured": false,
-    "description": "Phim tài liệu nghệ thuật quay bằng RED V-Raptor 8K VV tại vùng cao nguyên Tây Nguyên. Đảm nhận D.O.P, dựng mạch truyện cảm xúc và chỉnh màu Kodak 2383 Film Print Emulation giàu chiều sâu.",
-    "thumbnailUrl": "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=1400&q=85",
-    "videoUrl": "https://assets.mixkit.co/videos/preview/mixkit-pouring-coffee-in-a-cup-seen-from-above-21527-large.mp4",
+    "description": "Biên tập và dựng video ngắn theo brief cho bác sĩ, tập trung vào nhịp độ nhanh, phụ đề bắt mắt và hiệu ứng minh họa sinh động nhằm tăng tỷ lệ giữ chân khán giả.",
+    "thumbnailUrl": "/uploads/1795430992076-1.png",
+    "videoUrl": "/uploads/1795430978704-15.9_BS_LAN.mp4",
     "gallery": [
       "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=1200&q=80",
       "https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&w=1200&q=80",
-      "https://images.unsplash.com/photo-1447933601403-0c6688de566e?auto=format&fit=crop&w=1200&q=80"
+      "https://images.unsplash.com/photo-1447933601403-0c6688de566e?auto=format&fit=crop&w=1200&q=80",
+      "/uploads/1795431151216-1.png"
     ],
     "deliverables": [
-      "4K RED RAW Workflow",
-      "Kodak 2383 Film Grade",
-      "Stills Grading"
+      "Video"
     ],
     "softwareUsed": [
       "Dv",
-      "Pr",
-      "Lr",
-      "Ps"
+      "Pr"
     ],
     "createdAt": "2025-07-05T16:40:00.000Z"
   }

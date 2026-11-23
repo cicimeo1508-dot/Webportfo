@@ -200,9 +200,24 @@ function ProjectBentoCard({
 }
 
 export function PortfolioGrid({ initialProjects }: PortfolioGridProps) {
-  const [projects] = useState<Project[]>(initialProjects);
+  const [projects, setProjects] = useState<Project[]>(initialProjects);
   const [selectedCategory, setSelectedCategory] = useState<string>("Tất cả");
   const [activeProject, setActiveProject] = useState<Project | null>(null);
+
+  React.useEffect(() => {
+    setProjects(initialProjects);
+  }, [initialProjects]);
+
+  React.useEffect(() => {
+    fetch("/api/projects", { cache: "no-store" })
+      .then((res) => res.json())
+      .then((data) => {
+        if (Array.isArray(data?.projects) && data.projects.length > 0) {
+          setProjects(data.projects);
+        }
+      })
+      .catch(() => {});
+  }, []);
 
   const categories = [
     "Tất cả",
