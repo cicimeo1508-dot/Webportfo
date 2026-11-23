@@ -1,0 +1,156 @@
+import { Project, Booking } from "@/types/portfolio";
+
+export const INITIAL_PROJECTS: Project[] = [
+  {
+    id: "proj-porsche-taycan-tvc",
+    title: "Luminous Velocity — Commercial Film",
+    client: "Porsche Vietnam",
+    year: "2026",
+    category: "TVC Thương Mại",
+    aspectRatio: "16:9",
+    featured: true,
+    description:
+      "TVC quảng cáo điện ảnh cho dòng xe điện thể thao hiệu suất cao. Đảm nhận vai trò Offline/Online Editor và Senior Colorist trên DaVinci Resolve Studio (ACEScct workflow), kết hợp thiết kế âm thanh đa lớp và hiệu ứng chuyển cảnh tốc độ cao trên After Effects.",
+    thumbnailUrl:
+      "https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?auto=format&fit=crop&w=1400&q=85",
+    videoUrl:
+      "https://assets.mixkit.co/videos/preview/mixkit-sports-car-driving-in-the-city-at-night-41566-large.mp4",
+    gallery: [
+      "https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1544829099-b9a0c07fad1a?auto=format&fit=crop&w=1200&q=80",
+    ],
+    deliverables: ["4K DCI Master", "ACEScct HDR Grade", "5.1 Sound Design"],
+    softwareUsed: ["Pr", "Ae", "Dv"],
+    createdAt: "2026-02-15T10:00:00.000Z",
+  },
+  {
+    id: "proj-vogue-liquid-aura",
+    title: "Liquid Aura — Digital Fashion Reel",
+    client: "Vogue Singapore",
+    year: "2026",
+    category: "Social / Reels",
+    aspectRatio: "9:16",
+    featured: false,
+    description:
+      "Chuỗi video Fashion Editorial khung dọc 9:16 tối ưu cho Instagram Reels & TikTok Luxury. Dựng nhịp cắt match-cut theo nhịp bass thực nghiệm, xử lý rotoscoping ánh sáng kính mờ Liquid Glass và retouch da quảng cáo.",
+    thumbnailUrl:
+      "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=900&q=85",
+    videoUrl:
+      "https://assets.mixkit.co/videos/preview/mixkit-fashion-model-posing-in-neon-light-39877-large.mp4",
+    gallery: [
+      "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=900&q=80",
+      "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=900&q=80",
+      "https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=900&q=80",
+    ],
+    deliverables: ["9:16 4K Vertical", "VFX Glass Compositing", "Beauty Retouch"],
+    softwareUsed: ["Pr", "Ae", "Ps"],
+    createdAt: "2026-01-20T08:30:00.000Z",
+  },
+  {
+    id: "proj-son-tung-cyber-symphony",
+    title: "Cyber Symphony — Official Music Video",
+    client: "M-TP Entertainment",
+    year: "2025",
+    category: "Music Video",
+    aspectRatio: "16:9",
+    featured: false,
+    description:
+      "Music Video mang phong cách Neo-Futuristic với hơn 240 shot VFX compositing, 3D camera tracking và bảng màu Cyberpunk Teal & Magenta. Phối hợp trực tiếp cùng đạo diễn từ khâu D.O.P on-set tới hoàn thiện bản Master cuối cùng.",
+    thumbnailUrl:
+      "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=1400&q=85",
+    videoUrl:
+      "https://assets.mixkit.co/videos/preview/mixkit-dj-playing-music-at-a-nightclub-43451-large.mp4",
+    gallery: [
+      "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=1200&q=80",
+    ],
+    deliverables: ["4K Anamorphic 2.39:1", "VFX Compositing", "Film Grain Emulation"],
+    softwareUsed: ["Pr", "Ae", "Dv", "Ps"],
+    createdAt: "2025-11-12T14:20:00.000Z",
+  },
+  {
+    id: "proj-apple-vision-spatial",
+    title: "Spatial Dreams — Product Launch Film",
+    client: "Apple Authorized Reseller",
+    year: "2026",
+    category: "TVC Thương Mại",
+    aspectRatio: "16:9",
+    featured: true,
+    description:
+      "Phim giới thiệu trải nghiệm không gian số lấy cảm hứng từ visionOS 26. Từng chuyển động typography, chiều sâu trường ảnh (Depth of Field) và phản chiếu ánh sáng trên bề mặt kính đều được tinh chỉnh tỉ mỉ tới từng keyframe.",
+    thumbnailUrl:
+      "https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=1400&q=85",
+    videoUrl:
+      "https://assets.mixkit.co/videos/preview/mixkit-abstract-video-of-a-man-with-heads-like-statues-32645-large.mp4",
+    gallery: [
+      "https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1200&q=80",
+    ],
+    deliverables: ["ProRes 4444 XQ", "3D Motion Graphics", "Spatial Audio Mix"],
+    softwareUsed: ["Ae", "Pr", "Dv"],
+    createdAt: "2026-03-01T09:00:00.000Z",
+  },
+  {
+    id: "proj-nike-air-pulse",
+    title: "Unstoppable Pulse — Campaign Reel",
+    client: "Nike Southeast Asia",
+    year: "2025",
+    category: "Social / Reels",
+    aspectRatio: "9:16",
+    featured: false,
+    description:
+      "Chiến dịch quảng bá giày chạy bộ thế hệ mới với tiết tấu dựng phim dồn dập (Speed Ramp + Whip Pan + Sound FX lớp dày). Thu hút hơn 4.2 triệu lượt xem tự nhiên trong tuần đầu phát hành.",
+    thumbnailUrl:
+      "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=900&q=85",
+    videoUrl:
+      "https://assets.mixkit.co/videos/preview/mixkit-runner-tying-his-shoes-in-the-street-42804-large.mp4",
+    gallery: [
+      "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=900&q=80",
+      "https://images.unsplash.com/photo-1552674605-db6ffd4facb5?auto=format&fit=crop&w=900&q=80",
+      "https://images.unsplash.com/photo-1461896836934-ffe607ba8211?auto=format&fit=crop&w=900&q=80",
+    ],
+    deliverables: ["9:16 Social Master", "Dynamic Speed Ramping", "Custom SFX"],
+    softwareUsed: ["Pr", "Ae", "Lr"],
+    createdAt: "2025-09-18T11:15:00.000Z",
+  },
+  {
+    id: "proj-highlands-heritage-doc",
+    title: "Hương Vị Nguyên Bản — Visual Documentary",
+    client: "Highlands Reserve",
+    year: "2025",
+    category: "Phim Tài Liệu & Color Grading",
+    aspectRatio: "16:9",
+    featured: false,
+    description:
+      "Phim tài liệu nghệ thuật quay bằng RED V-Raptor 8K VV tại vùng cao nguyên Tây Nguyên. Đảm nhận D.O.P, dựng mạch truyện cảm xúc và chỉnh màu Kodak 2383 Film Print Emulation giàu chiều sâu.",
+    thumbnailUrl:
+      "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=1400&q=85",
+    videoUrl:
+      "https://assets.mixkit.co/videos/preview/mixkit-pouring-coffee-in-a-cup-seen-from-above-21527-large.mp4",
+    gallery: [
+      "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1447933601403-0c6688de566e?auto=format&fit=crop&w=1200&q=80",
+    ],
+    deliverables: ["4K RED RAW Workflow", "Kodak 2383 Film Grade", "Stills Grading"],
+    softwareUsed: ["Dv", "Pr", "Lr", "Ps"],
+    createdAt: "2025-07-05T16:40:00.000Z",
+  },
+];
+
+export const INITIAL_BOOKINGS: Booking[] = [
+  {
+    id: "bk-sample-1",
+    clientName: "Minh Tuấn (Creative Director - Ogilvy)",
+    contact: "minhtuan.creative@agency.vn | 0908123456",
+    projectType: "TVC Thương Mại & Color Grading",
+    date: "2026-11-26",
+    timeSlot: "14:00 - 16:00",
+    notes: "Họp brief offline/online cho chiến dịch TVC Tết 2027 (30s + 15s cutdown).",
+    status: "confirmed",
+    createdAt: "2026-11-20T09:00:00.000Z",
+  },
+];

@@ -1,0 +1,164 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 720" fill="none">
+  <defs>
+    <radialGradient id="auraGlow" cx="50%" cy="42%" r="48%">
+      <stop offset="0%" stop-color="#38BDF8" stop-opacity="0.38" />
+      <stop offset="55%" stop-color="#6366F1" stop-opacity="0.14" />
+      <stop offset="100%" stop-color="#000000" stop-opacity="0" />
+    </radialGradient>
+    <linearGradient id="jacketGrad" x1="140" y1="390" x2="460" y2="700" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#1E293B" />
+      <stop offset="50%" stop-color="#0F172A" />
+      <stop offset="100%" stop-color="#020617" />
+    </linearGradient>
+    <linearGradient id="rimLightLeft" x1="120" y1="200" x2="280" y2="680" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#38BDF8" stop-opacity="0.9" />
+      <stop offset="100%" stop-color="#38BDF8" stop-opacity="0" />
+    </linearGradient>
+    <linearGradient id="rimLightRight" x1="480" y1="200" x2="340" y2="680" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#C084FC" stop-opacity="0.85" />
+      <stop offset="100%" stop-color="#C084FC" stop-opacity="0" />
+    </linearGradient>
+    <linearGradient id="skinGrad" x1="230" y1="150" x2="370" y2="390" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#FDE6D2" />
+      <stop offset="60%" stop-color="#F3C6A5" />
+      <stop offset="100%" stop-color="#D99B72" />
+    </linearGradient>
+    <linearGradient id="hairGrad" x1="210" y1="85" x2="390" y2="245" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#1E293B" />
+      <stop offset="40%" stop-color="#0F172A" />
+      <stop offset="100%" stop-color="#020617" />
+    </linearGradient>
+    <linearGradient id="shirtGrad" x1="250" y1="410" x2="350" y2="640" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#F8FAFC" />
+      <stop offset="100%" stop-color="#CBD5E1" />
+    </linearGradient>
+    <linearGradient id="lensGlass" x1="240" y1="235" x2="360" y2="275" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#38BDF8" stop-opacity="0.28" />
+      <stop offset="100%" stop-color="#818CF8" stop-opacity="0.12" />
+    </linearGradient>
+  </defs>
+
+  <!-- Subtle Studio Rim Aura (Cutout transparent background) -->
+  <circle cx="300" cy="340" r="245" fill="url(#auraGlow)" />
+
+  <!-- Cutout Torso / Studio Bomber Jacket -->
+  <path
+    d="M110 690C114 535 168 445 232 422L300 448L368 422C432 445 486 535 490 690H110Z"
+    fill="url(#jacketGrad)"
+  />
+  <!-- Studio Dual-Tone Rim Lighting on Shoulders (Cyan & Violet Cinema Key Light) -->
+  <path
+    d="M112 690C116 538 170 448 232 423"
+    stroke="url(#rimLightLeft)"
+    stroke-width="6"
+    stroke-linecap="round"
+  />
+  <path
+    d="M488 690C484 538 430 448 368 423"
+    stroke="url(#rimLightRight)"
+    stroke-width="6"
+    stroke-linecap="round"
+  />
+
+  <!-- Crew Neck White Tee Shirt -->
+  <path d="M254 428L300 545L346 428C328 442 272 442 254 428Z" fill="url(#shirtGrad)" />
+
+  <!-- Jacket Lapels & Zipper Details -->
+  <path d="M232 422L284 575L250 585L212 455L232 422Z" fill="#334155" fill-opacity="0.55" />
+  <path d="M368 422L316 575L350 585L388 455L368 422Z" fill="#1E293B" fill-opacity="0.75" />
+
+  <!-- Studio Monitor Headphones Around Neck -->
+  <path
+    d="M218 436C215 482 252 512 300 512C348 512 385 482 382 436"
+    stroke="#334155"
+    stroke-width="14"
+    stroke-linecap="round"
+  />
+  <rect x="204" y="424" width="32" height="46" rx="16" fill="#0F172A" stroke="#38BDF8" stroke-width="2" />
+  <rect x="364" y="424" width="32" height="46" rx="16" fill="#0F172A" stroke="#C084FC" stroke-width="2" />
+
+  <!-- Neck & Shadow -->
+  <path d="M262 348H338V432C338 452 262 452 262 432V348Z" fill="url(#skinGrad)" />
+  <path d="M262 355C276 378 324 378 338 355V386C318 402 282 402 262 386V355Z" fill="#B97A56" fill-opacity="0.45" />
+
+  <!-- Ears -->
+  <rect x="206" y="242" width="22" height="48" rx="11" fill="#E5B28D" />
+  <rect x="372" y="242" width="22" height="48" rx="11" fill="#D99B72" />
+
+  <!-- Face / Head Sculpture -->
+  <rect x="218" y="148" width="164" height="222" rx="78" fill="url(#skinGrad)" />
+
+  <!-- Cinema Rim Highlight on Cheekbone -->
+  <path
+    d="M222 225C220 285 240 342 288 364"
+    stroke="#38BDF8"
+    stroke-width="3.5"
+    stroke-opacity="0.55"
+    stroke-linecap="round"
+  />
+  <path
+    d="M378 225C380 285 360 342 312 364"
+    stroke="#C084FC"
+    stroke-width="3.5"
+    stroke-opacity="0.5"
+    stroke-linecap="round"
+  />
+
+  <!-- Eyebrows -->
+  <path d="M246 226C258 219 276 219 286 225" stroke="#0F172A" stroke-width="5.5" stroke-linecap="round" />
+  <path d="M314 225C324 219 342 219 354 226" stroke="#0F172A" stroke-width="5.5" stroke-linecap="round" />
+
+  <!-- Eyes -->
+  <circle cx="266" cy="248" r="7.5" fill="#0F172A" />
+  <circle cx="264" cy="246" r="2.3" fill="#FFFFFF" />
+  <circle cx="334" cy="248" r="7.5" fill="#0F172A" />
+  <circle cx="332" cy="246" r="2.3" fill="#FFFFFF" />
+
+  <!-- Apple-style Designer Optical Frames (Liquid Titanium Eyewear) -->
+  <rect
+    x="236"
+    y="230"
+    width="58"
+    height="38"
+    rx="12"
+    fill="url(#lensGlass)"
+    stroke="#1E293B"
+    stroke-width="3.5"
+  />
+  <rect
+    x="306"
+    y="230"
+    width="58"
+    height="38"
+    rx="12"
+    fill="url(#lensGlass)"
+    stroke="#1E293B"
+    stroke-width="3.5"
+  />
+  <path d="M294 246H306" stroke="#1E293B" stroke-width="3.5" />
+  <!-- Specular reflection on glasses -->
+  <path d="M244 237L258 260" stroke="#FFFFFF" stroke-opacity="0.55" stroke-width="2.5" stroke-linecap="round" />
+  <path d="M314 237L328 260" stroke="#FFFFFF" stroke-opacity="0.55" stroke-width="2.5" stroke-linecap="round" />
+
+  <!-- Nose & Confident Smile -->
+  <path d="M300 252V288C300 294 293 297 288 295" stroke="#C5825B" stroke-width="3.8" stroke-linecap="round" />
+  <path
+    d="M276 318C288 329 312 329 324 318"
+    stroke="#9A5B3E"
+    stroke-width="4.5"
+    stroke-linecap="round"
+  />
+
+  <!-- Stylized Textured Hair (Modern Vietnamese Creative Director Cut) -->
+  <path
+    d="M214 232C206 175 230 112 296 108C358 104 394 152 386 232C380 194 358 172 332 168C306 164 282 182 260 176C236 170 222 198 214 232Z"
+    fill="url(#hairGrad)"
+  />
+  <path
+    d="M226 144C254 114 318 106 358 134"
+    stroke="#38BDF8"
+    stroke-width="3"
+    stroke-opacity="0.5"
+    stroke-linecap="round"
+  />
+</svg>
