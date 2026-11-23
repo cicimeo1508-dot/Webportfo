@@ -16,6 +16,8 @@ export const INITIAL_CLIENT_LINKS: ClientShareLink[] = [
     welcomeMessage:
       "Chào anh/chị, đây là danh sách các dự án video Ẩm thực, Nhà hàng & Rooftop Dining do Gia Huy trực tiếp đảm nhận quay dựng và chỉnh màu. Mời anh/chị bấm vào từng dự án để xem bản Master chất lượng cao và các phân cảnh Highlight.",
     projectIds: [
+      "proj-nanimo-restaurant-chi-kim-anh",
+      "proj-france-restaurant-jason",
       "proj-94farm-anh-duy",
       "proj-cuu-hy-chi-nhu",
       "proj-boho-restaurant",

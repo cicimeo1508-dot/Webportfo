@@ -39,10 +39,15 @@ function resolveMediaPath(segments: string[]): string | null {
     return uploadsPath;
   }
 
-  // 2. Hỗ trợ đọc trực tiếp từ ổ đĩa nguồn I:\PORT của Gia Huy
+  // 2. Hỗ trợ đọc trực tiếp từ ổ đĩa nguồn I:\PORT và I:\PORT\THEM của Gia Huy
   const portDrivePath = path.join("I:\\PORT", ...safeSegments);
   if (fs.existsSync(portDrivePath) && fs.statSync(portDrivePath).isFile()) {
     return portDrivePath;
+  }
+
+  const portThemDrivePath = path.join("I:\\PORT\\THEM", ...safeSegments);
+  if (fs.existsSync(portThemDrivePath) && fs.statSync(portThemDrivePath).isFile()) {
+    return portThemDrivePath;
   }
 
   return null;

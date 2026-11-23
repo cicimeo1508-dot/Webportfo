@@ -2,6 +2,53 @@ import { Project, Booking } from "@/types/portfolio";
 
 export const INITIAL_PROJECTS: Project[] = [
   {
+    id: "proj-nanimo-restaurant-chi-kim-anh",
+    title: "Nanaimo Bistro & Oyster Bar — Fine Dining & Seafood Experience",
+    client: "Chị Kim Anh (Nanimo Restaurant)",
+    year: "2026",
+    category: "Ẩm Thực & Lifestyle",
+    aspectRatio: "9:16",
+    featured: false,
+    description:
+      "Phim ngắn trải nghiệm ẩm thực Âu & Hải sản cao cấp (9:16) cho Nanaimo Bistro & Oyster Bar của Chị Kim Anh. Dựng mạch cảm xúc tinh tế từ hình ảnh tôm hùm tươi sống, nghệ thuật bài trí món sò điệp Fine Dining, thực đơn Oyster đặc trưng đến không gian sân vườn nhiệt đới lãng mạn bên ly rượu vang trắng.",
+    thumbnailUrl: "/uploads/port-stills/nanimo-restaurant-chi-kim-anh/frame-5.jpg",
+    videoUrl: "/uploads/Nanimo Restaurant - Chị Kim Anh.mp4",
+    gallery: [
+      "/uploads/port-stills/nanimo-restaurant-chi-kim-anh/frame-5.jpg",
+      "/uploads/port-stills/nanimo-restaurant-chi-kim-anh/frame-2.jpg",
+      "/uploads/port-stills/nanimo-restaurant-chi-kim-anh/frame-4.jpg",
+      "/uploads/port-stills/nanimo-restaurant-chi-kim-anh/frame-1.jpg",
+      "/uploads/port-stills/nanimo-restaurant-chi-kim-anh/frame-3.jpg",
+      "/uploads/port-stills/nanimo-restaurant-chi-kim-anh/frame-6.jpg",
+    ],
+    deliverables: ["9:16 Fine Dining Reel", "Warm Ambient Grading", "Luxury Pacing"],
+    softwareUsed: ["Pr", "Dv", "Lr"],
+    createdAt: "2026-11-23T15:07:00.000Z",
+  },
+  {
+    id: "proj-france-restaurant-jason",
+    title: "France Restaurant — French Bistro Storytelling & Kinetic Reel",
+    client: "Jason (France Restaurant)",
+    year: "2026",
+    category: "Talking Head & Motion UI",
+    aspectRatio: "9:16",
+    featured: false,
+    description:
+      "Video Talking Head & Hospitality Reel tiếng Pháp (9:16) quay tại không gian nhà hàng Pháp cùng khách hàng quốc tế Jason. Sử dụng kỹ thuật dựng chuyển cảnh đa không gian (từ bàn tiệc, khu decor đến quầy bar rượu vang) kết hợp phụ đề Kinetic Typography tiếng Pháp điểm nhấn sắc tím hiện đại.",
+    thumbnailUrl: "/uploads/port-stills/france-restaurant-jason/frame-4.jpg",
+    videoUrl: "/uploads/France Restaurant - Jason.mp4",
+    gallery: [
+      "/uploads/port-stills/france-restaurant-jason/frame-4.jpg",
+      "/uploads/port-stills/france-restaurant-jason/frame-2.jpg",
+      "/uploads/port-stills/france-restaurant-jason/frame-1.jpg",
+      "/uploads/port-stills/france-restaurant-jason/frame-3.jpg",
+      "/uploads/port-stills/france-restaurant-jason/frame-6.jpg",
+    ],
+    deliverables: ["9:16 International Reel", "French Kinetic Captions", "Dynamic Scene Cuts"],
+    softwareUsed: ["Pr", "Ae", "Dv"],
+    createdAt: "2026-11-23T15:09:00.000Z",
+  },
+  {
     id: "proj-mexo-anh-trong",
     title: "MEXO Group — Giải Pháp Tối Ưu Sàn TMĐT Chuẩn SEO",
     client: "Anh Trọng (MEXO Group)",
