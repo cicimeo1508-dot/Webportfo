@@ -19,6 +19,7 @@ import { ProjectModal } from "@/components/ProjectModal";
 
 interface PortfolioGridProps {
   initialProjects: Project[];
+  disableAutoSync?: boolean;
 }
 
 function ProjectBentoCard({
@@ -199,7 +200,10 @@ function ProjectBentoCard({
   );
 }
 
-export function PortfolioGrid({ initialProjects }: PortfolioGridProps) {
+export function PortfolioGrid({
+  initialProjects,
+  disableAutoSync = false,
+}: PortfolioGridProps) {
   const [projects, setProjects] = useState<Project[]>(initialProjects);
   const [selectedCategory, setSelectedCategory] = useState<string>("Tất cả");
   const [activeProject, setActiveProject] = useState<Project | null>(null);
@@ -209,6 +213,7 @@ export function PortfolioGrid({ initialProjects }: PortfolioGridProps) {
   }, [initialProjects]);
 
   React.useEffect(() => {
+    if (disableAutoSync) return;
     fetch("/api/projects", { cache: "no-store" })
       .then((res) => res.json())
       .then((data) => {
@@ -217,7 +222,7 @@ export function PortfolioGrid({ initialProjects }: PortfolioGridProps) {
         }
       })
       .catch(() => {});
-  }, []);
+  }, [disableAutoSync]);
 
   const categories = [
     "Tất cả",

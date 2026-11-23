@@ -28,3 +28,13 @@ export interface Booking {
   status: "confirmed" | "pending";
   createdAt: string;
 }
+
+export interface ClientShareLink {
+  id: string;
+  slug: string;
+  clientName: string;
+  customTitle: string;
+  welcomeMessage: string;
+  projectIds: string[];
+  createdAt: string;
+}

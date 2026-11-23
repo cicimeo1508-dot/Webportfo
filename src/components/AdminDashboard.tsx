@@ -19,14 +19,18 @@ import {
   ExternalLink,
   Layers,
   Sparkles,
+  Link2,
+  Copy,
+  Check,
 } from "lucide-react";
-import { Project, Booking, SoftwareCode } from "@/types/portfolio";
+import { Project, Booking, SoftwareCode, ClientShareLink } from "@/types/portfolio";
 import { SITE_CONFIG } from "@/lib/config";
 import { SOFTWARE_LIST, SoftwareSvgIcon } from "@/components/SoftwareIcons";
 
 interface AdminDashboardProps {
   initialProjects: Project[];
   initialBookings: Booking[];
+  initialClientLinks: ClientShareLink[];
   detectedIp: string;
 }
 
@@ -45,18 +49,32 @@ const EMPTY_FORM = {
   softwareUsed: ["Pr", "Ae", "Dv"] as SoftwareCode[],
 };
 
+const EMPTY_LINK_FORM = {
+  slug: "",
+  clientName: "",
+  customTitle: "",
+  welcomeMessage: "",
+  projectIds: [] as string[],
+};
+
 export function AdminDashboard({
   initialProjects,
   initialBookings,
+  initialClientLinks,
   detectedIp,
 }: AdminDashboardProps) {
   const [projects, setProjects] = useState<Project[]>(initialProjects);
   const [bookings] = useState<Booking[]>(initialBookings);
-  const [activeTab, setActiveTab] = useState<"projects" | "editor" | "bookings">(
-    "projects"
+  const [clientLinks, setClientLinks] = useState<ClientShareLink[]>(
+    initialClientLinks
   );
+  const [activeTab, setActiveTab] = useState<
+    "projects" | "editor" | "clientLinks" | "bookings"
+  >("projects");
   const [editingId, setEditingId] = useState<string | null>(null);
   const [form, setForm] = useState(EMPTY_FORM);
+  const [linkForm, setLinkForm] = useState(EMPTY_LINK_FORM);
+  const [copiedSlug, setCopiedSlug] = useState<string | null>(null);
   const [isSaving, setIsSaving] = useState(false);
   const [uploadingField, setUploadingField] = useState<string | null>(null);
   const [toast, setToast] = useState<string | null>(null);
@@ -157,10 +175,10 @@ export function AdminDashboard({
       description: form.description.trim(),
       thumbnailUrl:
         form.thumbnailUrl.trim() ||
-        "https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?auto=format&fit=crop&w=1400&q=85",
+        "/uploads/port-stills/mexo-anh-trong/frame-1.jpg",
       videoUrl:
         form.videoUrl.trim() ||
-        "https://assets.mixkit.co/videos/preview/mixkit-sports-car-driving-in-the-city-at-night-41566-large.mp4",
+        "/uploads/MEXO - ANH Trọng.mp4",
       gallery: form.galleryText
         .split("\n")
         .map((s) => s.trim())
@@ -215,6 +233,74 @@ export function AdminDashboard({
     }
   };
 
+  const handleToggleProjectForLink = (projId: string) => {
+    setLinkForm((prev) => {
+      const exists = prev.projectIds.includes(projId);
+      return {
+        ...prev,
+        projectIds: exists
+          ? prev.projectIds.filter((id) => id !== projId)
+          : [...prev.projectIds, projId],
+      };
+    });
+  };
+
+  const handleSaveClientLink = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!linkForm.clientName.trim()) {
+      showToast("Vui lòng nhập Tên khách hàng nhận link.");
+      return;
+    }
+
+    setIsSaving(true);
+    try {
+      const res = await fetch("/api/client-links", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(linkForm),
+      });
+      const data = await res.json();
+      if (res.ok && data.links) {
+        setClientLinks(data.links);
+        setLinkForm(EMPTY_LINK_FORM);
+        showToast(`Đã tạo đường dẫn custom: /vip/${data.link.slug}`);
+      } else {
+        showToast(data.error || "Không thể tạo link custom.");
+      }
+    } catch {
+      showToast("Lỗi kết nối khi lưu link custom.");
+    } finally {
+      setIsSaving(false);
+    }
+  };
+
+  const handleDeleteClientLink = async (slug: string) => {
+    try {
+      const res = await fetch(`/api/client-links?slug=${encodeURIComponent(slug)}`, {
+        method: "DELETE",
+      });
+      const data = await res.json();
+      if (res.ok && data.links) {
+        setClientLinks(data.links);
+        showToast(`Đã xóa link /vip/${slug}`);
+      }
+    } catch {
+      showToast("Không thể xóa link.");
+    }
+  };
+
+  const handleCopyShareUrl = async (slug: string) => {
+    const fullUrl = `${window.location.origin}/vip/${slug}`;
+    try {
+      await navigator.clipboard.writeText(fullUrl);
+      setCopiedSlug(slug);
+      showToast(`Đã sao chép link: ${fullUrl}`);
+      setTimeout(() => setCopiedSlug(null), 2500);
+    } catch {
+      // ignore
+    }
+  };
+
   return (
     <div className="pt-28 pb-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
       {/* Toast Notification */}
@@ -244,11 +330,20 @@ export function AdminDashboard({
             Trung Tâm Quản Trị Dự Án (Apple Settings)
           </h1>
           <p className="text-xs sm:text-sm text-apple-gray dark:text-zinc-400">
-            Quản lý toàn bộ dự án Portfolio, tải lên Video/Hình ảnh mới, sửa chú thích hoặc xem danh sách lịch hẹn của khách hàng.
+            Quản lý 11 dự án Portfolio, tạo đường dẫn Custom gửi riêng từng khách hàng (`/vip/...`) và theo dõi lịch hẹn.
           </p>
         </div>
 
         <div className="flex flex-wrap items-center gap-3 shrink-0">
+          <button
+            type="button"
+            onClick={() => setActiveTab("clientLinks")}
+            className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-purple-600 hover:bg-purple-500 text-white text-xs sm:text-sm font-bold shadow-md transition-all"
+          >
+            <Link2 className="w-4 h-4" />
+            <span>Tạo Link Gửi Khách</span>
+          </button>
+
           <button
             type="button"
             onClick={handleStartCreate}
@@ -297,6 +392,30 @@ export function AdminDashboard({
               }`}
             >
               {projects.length}
+            </span>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => setActiveTab("clientLinks")}
+            className={`w-full px-4 py-3 rounded-2xl text-left text-xs sm:text-sm font-semibold flex items-center justify-between transition-all ${
+              activeTab === "clientLinks"
+                ? "bg-apple-blue text-white shadow-sm"
+                : "hover:bg-black/5 dark:hover:bg-white/10 text-apple-text dark:text-white"
+            }`}
+          >
+            <span className="inline-flex items-center gap-2.5">
+              <Link2 className="w-4 h-4" />
+              <span>Link Custom gửi khách</span>
+            </span>
+            <span
+              className={`px-2 py-0.5 rounded-full text-xs ${
+                activeTab === "clientLinks"
+                  ? "bg-white/20 text-white"
+                  : "bg-black/5 dark:bg-white/10"
+              }`}
+            >
+              {clientLinks.length}
             </span>
           </button>
 
@@ -424,6 +543,250 @@ export function AdminDashboard({
             </div>
           )}
 
+          {activeTab === "clientLinks" && (
+            <div className="space-y-8">
+              {/* List of Existing Custom Links */}
+              <div className="liquid-glass-strong rounded-3xl p-6 sm:p-8 space-y-5">
+                <div>
+                  <h2 className="text-xl font-bold text-apple-text dark:text-white">
+                    Đường Dẫn Custom Gửi Khách Hàng ({clientLinks.length})
+                  </h2>
+                  <p className="text-xs sm:text-sm text-apple-gray dark:text-zinc-400">
+                    Mỗi đường dẫn `/vip/ten-khach-hang` hiển thị một trang Showreel cá nhân hóa với lời chào riêng và những video bạn chọn sẵn cho khách hàng đó.
+                  </p>
+                </div>
+
+                <div className="space-y-3">
+                  {clientLinks.map((cl) => (
+                    <div
+                      key={cl.id}
+                      className="liquid-glass rounded-2xl p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4 hover:border-apple-blue/40 transition-all"
+                    >
+                      <div className="space-y-1.5 min-w-0 flex-1">
+                        <div className="flex flex-wrap items-center gap-2">
+                          <span className="px-3 py-0.5 rounded-full text-xs font-bold bg-purple-500/15 text-purple-600 dark:text-purple-300">
+                            /vip/{cl.slug}
+                          </span>
+                          <span className="text-xs font-semibold text-apple-blue dark:text-sky-400">
+                            Khách hàng: {cl.clientName}
+                          </span>
+                          <span className="text-xs text-apple-gray">
+                            • {cl.projectIds.length || projects.length} video
+                          </span>
+                        </div>
+                        <h3 className="text-sm sm:text-base font-bold text-apple-text dark:text-white truncate">
+                          {cl.customTitle}
+                        </h3>
+                        <p className="text-xs text-apple-gray dark:text-zinc-400 line-clamp-1">
+                          {cl.welcomeMessage}
+                        </p>
+                      </div>
+
+                      <div className="flex flex-wrap items-center gap-2 shrink-0">
+                        <button
+                          type="button"
+                          onClick={() => handleCopyShareUrl(cl.slug)}
+                          className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-apple-blue text-white text-xs font-bold shadow-sm hover:bg-apple-blueHover transition-colors"
+                        >
+                          {copiedSlug === cl.slug ? (
+                            <>
+                              <Check className="w-3.5 h-3.5" />
+                              <span>Đã Copy Link</span>
+                            </>
+                          ) : (
+                            <>
+                              <Copy className="w-3.5 h-3.5" />
+                              <span>Copy Link Gửi Khách</span>
+                            </>
+                          )}
+                        </button>
+
+                        <Link
+                          href={`/vip/${cl.slug}`}
+                          target="_blank"
+                          className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl liquid-glass text-xs font-bold text-apple-text dark:text-white hover:border-apple-blue/40"
+                        >
+                          <span>Mở xem</span>
+                          <ExternalLink className="w-3.5 h-3.5" />
+                        </Link>
+
+                        <button
+                          type="button"
+                          onClick={() =>
+                            setLinkForm({
+                              slug: cl.slug,
+                              clientName: cl.clientName,
+                              customTitle: cl.customTitle,
+                              welcomeMessage: cl.welcomeMessage,
+                              projectIds: cl.projectIds,
+                            })
+                          }
+                          className="p-2 rounded-xl bg-black/5 dark:bg-white/10 hover:bg-apple-blue hover:text-white transition-colors"
+                          title="Sửa link này"
+                        >
+                          <Pencil className="w-3.5 h-3.5" />
+                        </button>
+
+                        <button
+                          type="button"
+                          onClick={() => handleDeleteClientLink(cl.slug)}
+                          className="p-2 rounded-xl bg-red-500/10 text-red-600 hover:bg-red-500 hover:text-white transition-colors"
+                          title="Xóa link này"
+                        >
+                          <Trash2 className="w-3.5 h-3.5" />
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Form to Create / Update a Custom Client Link */}
+              <form
+                onSubmit={handleSaveClientLink}
+                className="liquid-glass-strong rounded-3xl p-6 sm:p-8 space-y-5"
+              >
+                <div className="border-b border-black/5 dark:border-white/10 pb-4">
+                  <h3 className="text-lg sm:text-xl font-bold text-apple-text dark:text-white">
+                    Tạo Hoặc Cập Nhật Đường Dẫn Custom Mới
+                  </h3>
+                  <p className="text-xs sm:text-sm text-apple-gray dark:text-zinc-400">
+                    Ví dụ: Nhập slug <strong>anh-duy-94farm</strong> sẽ tạo đường dẫn riêng <strong>/vip/anh-duy-94farm</strong>.
+                  </p>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div className="space-y-1.5">
+                    <label className="text-xs font-bold uppercase tracking-wider text-apple-gray dark:text-zinc-300">
+                      Tên Khách Hàng / Brand nhận link *
+                    </label>
+                    <input
+                      type="text"
+                      required
+                      value={linkForm.clientName}
+                      onChange={(e) =>
+                        setLinkForm({ ...linkForm, clientName: e.target.value })
+                      }
+                      placeholder="VD: Anh Trọng (MEXO Group)"
+                      className="w-full px-4 py-3 rounded-2xl liquid-glass text-sm text-apple-text dark:text-white focus:outline-none focus:ring-2 focus:ring-apple-blue"
+                    />
+                  </div>
+
+                  <div className="space-y-1.5">
+                    <label className="text-xs font-bold uppercase tracking-wider text-apple-gray dark:text-zinc-300">
+                      Đường dẫn tùy chỉnh (Slug) — để trống sẽ tự tạo theo tên
+                    </label>
+                    <div className="flex items-center rounded-2xl liquid-glass px-3.5 py-3 text-sm">
+                      <span className="text-apple-gray select-none font-semibold">
+                        /vip/
+                      </span>
+                      <input
+                        type="text"
+                        value={linkForm.slug}
+                        onChange={(e) =>
+                          setLinkForm({ ...linkForm, slug: e.target.value })
+                        }
+                        placeholder="mexo-group-vip"
+                        className="flex-1 bg-transparent text-apple-text dark:text-white focus:outline-none font-semibold"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div className="space-y-1.5">
+                  <label className="text-xs font-bold uppercase tracking-wider text-apple-gray dark:text-zinc-300">
+                    Tiêu đề trang Showreel riêng cho khách
+                  </label>
+                  <input
+                    type="text"
+                    value={linkForm.customTitle}
+                    onChange={(e) =>
+                      setLinkForm({ ...linkForm, customTitle: e.target.value })
+                    }
+                    placeholder="VD: Showreel Chọn Lọc Dành Riêng Cho Anh Trọng — MEXO Group"
+                    className="w-full px-4 py-3 rounded-2xl liquid-glass text-sm text-apple-text dark:text-white focus:outline-none focus:ring-2 focus:ring-apple-blue"
+                  />
+                </div>
+
+                <div className="space-y-1.5">
+                  <label className="text-xs font-bold uppercase tracking-wider text-apple-gray dark:text-zinc-300">
+                    Lời chào cá nhân hóa gửi khách hàng
+                  </label>
+                  <textarea
+                    rows={2}
+                    value={linkForm.welcomeMessage}
+                    onChange={(e) =>
+                      setLinkForm({
+                        ...linkForm,
+                        welcomeMessage: e.target.value,
+                      })
+                    }
+                    placeholder="Chào anh/chị, Gia Huy gửi anh/chị các dự án video mẫu phù hợp nhất với ngành hàng của mình..."
+                    className="w-full px-4 py-3 rounded-2xl liquid-glass text-sm text-apple-text dark:text-white focus:outline-none focus:ring-2 focus:ring-apple-blue resize-none"
+                  />
+                </div>
+
+                {/* Project Multi-Select for this Client Link */}
+                <div className="space-y-2.5">
+                  <label className="text-xs font-bold uppercase tracking-wider text-apple-gray dark:text-zinc-300 block">
+                    Chọn các dự án muốn hiển thị trong Link này ({linkForm.projectIds.length === 0 ? "Đang hiển thị tất cả 11 dự án" : `Đã chọn ${linkForm.projectIds.length} dự án`})
+                  </label>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 max-h-72 overflow-y-auto p-1">
+                    {projects.map((p) => {
+                      const checked = linkForm.projectIds.includes(p.id);
+                      return (
+                        <button
+                          key={p.id}
+                          type="button"
+                          onClick={() => handleToggleProjectForLink(p.id)}
+                          className={`p-3 rounded-2xl text-left flex items-center gap-3 border transition-all ${
+                            checked
+                              ? "bg-apple-blue/15 border-apple-blue text-apple-text dark:text-white"
+                              : "liquid-glass border-transparent opacity-75 hover:opacity-100"
+                          }`}
+                        >
+                          <img
+                            src={p.thumbnailUrl}
+                            alt={p.title}
+                            className="w-12 h-9 rounded-lg object-cover shrink-0 bg-zinc-900"
+                          />
+                          <div className="min-w-0 flex-1">
+                            <div className="text-xs font-bold truncate">
+                              {p.title}
+                            </div>
+                            <div className="text-[11px] text-apple-gray truncate">
+                              {p.client} • {p.aspectRatio}
+                            </div>
+                          </div>
+                          <div
+                            className={`w-5 h-5 rounded-full flex items-center justify-center text-xs shrink-0 ${
+                              checked
+                                ? "bg-apple-blue text-white"
+                                : "border border-apple-gray/40"
+                            }`}
+                          >
+                            {checked && <Check className="w-3 h-3" />}
+                          </div>
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                <div className="flex justify-end pt-3 border-t border-black/5 dark:border-white/10">
+                  <button
+                    type="submit"
+                    disabled={isSaving}
+                    className="inline-flex items-center gap-2 px-7 py-3 rounded-full bg-apple-blue hover:bg-apple-blueHover text-white text-xs sm:text-sm font-bold shadow-lg transition-all"
+                  >
+                    <Link2 className="w-4 h-4" />
+                    <span>Lưu & Tạo Đường Dẫn Custom</span>
+                  </button>
+                </div>
+              </form>
+            </div>
+          )}
+
           {activeTab === "editor" && (
             <form
               onSubmit={handleSaveProject}
@@ -459,7 +822,7 @@ export function AdminDashboard({
                     required
                     value={form.title}
                     onChange={(e) => setForm({ ...form, title: e.target.value })}
-                    placeholder="VD: Luminous Velocity — Commercial Film"
+                    placeholder="VD: MEXO Group — Giải Pháp Sàn TMĐT"
                     className="w-full px-4 py-3 rounded-2xl liquid-glass text-sm text-apple-text dark:text-white focus:outline-none focus:ring-2 focus:ring-apple-blue"
                   />
                 </div>
@@ -475,7 +838,7 @@ export function AdminDashboard({
                     required
                     value={form.client}
                     onChange={(e) => setForm({ ...form, client: e.target.value })}
-                    placeholder="VD: Porsche Vietnam"
+                    placeholder="VD: Anh Trọng (MEXO Group)"
                     className="w-full px-4 py-3 rounded-2xl liquid-glass text-sm text-apple-text dark:text-white focus:outline-none focus:ring-2 focus:ring-apple-blue"
                   />
                 </div>
@@ -504,7 +867,7 @@ export function AdminDashboard({
                     type="text"
                     value={form.category}
                     onChange={(e) => setForm({ ...form, category: e.target.value })}
-                    placeholder="VD: TVC Thương Mại, Music Video, Social / Reels..."
+                    placeholder="VD: Talking Head & Motion UI, Ẩm Thực & Lifestyle..."
                     className="w-full px-4 py-3 rounded-2xl liquid-glass text-sm text-apple-text dark:text-white focus:outline-none focus:ring-2 focus:ring-apple-blue"
                   />
                 </div>
@@ -603,7 +966,7 @@ export function AdminDashboard({
                     type="text"
                     value={form.videoUrl}
                     onChange={(e) => setForm({ ...form, videoUrl: e.target.value })}
-                    placeholder="https://.../video.mp4"
+                    placeholder="/uploads/ten-video.mp4"
                     className="w-full px-4 py-2.5 rounded-2xl liquid-glass text-xs sm:text-sm text-apple-text dark:text-white focus:outline-none focus:ring-2 focus:ring-apple-blue"
                   />
                   <label
@@ -645,7 +1008,7 @@ export function AdminDashboard({
                     onChange={(e) =>
                       setForm({ ...form, thumbnailUrl: e.target.value })
                     }
-                    placeholder="https://.../thumbnail.jpg"
+                    placeholder="/uploads/port-stills/..."
                     className="w-full px-4 py-2.5 rounded-2xl liquid-glass text-xs sm:text-sm text-apple-text dark:text-white focus:outline-none focus:ring-2 focus:ring-apple-blue"
                   />
                   <label
@@ -680,7 +1043,7 @@ export function AdminDashboard({
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
                   <label className="text-xs font-bold uppercase tracking-wider text-apple-gray dark:text-zinc-300">
-                    Bộ sưu tập hình ảnh Stills / Hậu trường (Mỗi dòng 1 link ảnh)
+                    Bộ sưu tập hình ảnh Highlight / Hậu trường (Mỗi dòng 1 link ảnh)
                   </label>
                   <label className="cursor-pointer text-xs font-bold text-apple-blue hover:underline inline-flex items-center gap-1">
                     <UploadCloud className="w-3.5 h-3.5" />
@@ -700,7 +1063,7 @@ export function AdminDashboard({
                   rows={3}
                   value={form.galleryText}
                   onChange={(e) => setForm({ ...form, galleryText: e.target.value })}
-                  placeholder="https://images.unsplash.com/..."
+                  placeholder="/uploads/port-stills/..."
                   className="w-full px-4 py-3 rounded-2xl liquid-glass text-xs sm:text-sm text-apple-text dark:text-white focus:outline-none focus:ring-2 focus:ring-apple-blue resize-none"
                 />
               </div>

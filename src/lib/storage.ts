@@ -1,19 +1,66 @@
 import fs from "fs";
 import path from "path";
 import os from "os";
-import { Project, Booking } from "@/types/portfolio";
+import { Project, Booking, ClientShareLink } from "@/types/portfolio";
 import { INITIAL_PROJECTS, INITIAL_BOOKINGS } from "@/data/initial-projects";
 
-// Hỗ trợ lưu trữ linh hoạt: Local JSON trong thư mục data/ khi chạy local,
-// và tự động fallback sang os.tmpdir() + bộ nhớ RAM khi chạy trên Serverless (Vercel)
 const LOCAL_DATA_DIR = path.join(process.cwd(), "data");
 const TMP_DATA_DIR = path.join(os.tmpdir(), "giahuy-portfolio-data");
+
+export const INITIAL_CLIENT_LINKS: ClientShareLink[] = [
+  {
+    id: "cl-fnb-showcase",
+    slug: "am-thuc-nha-hang",
+    clientName: "Quý Đối Tác F&B / Nhà Hàng",
+    customTitle: "Showreel Ẩm Thực & Nhà Hàng Chọn Lọc — Gia Huy D.O.P",
+    welcomeMessage:
+      "Chào anh/chị, đây là danh sách các dự án video Ẩm thực, Nhà hàng & Rooftop Dining do Gia Huy trực tiếp đảm nhận quay dựng và chỉnh màu. Mời anh/chị bấm vào từng dự án để xem bản Master chất lượng cao và các phân cảnh Highlight.",
+    projectIds: [
+      "proj-94farm-anh-duy",
+      "proj-cuu-hy-chi-nhu",
+      "proj-boho-restaurant",
+    ],
+    createdAt: "2026-11-23T11:30:00.000Z",
+  },
+  {
+    id: "cl-nightlife-adm",
+    slug: "nightlife-event",
+    clientName: "Quý Đối Tác Lounge & Event",
+    customTitle: "Showreel Nightlife, Visual LED & Sự Kiện 4K — Gia Huy",
+    welcomeMessage:
+      "Tổng hợp các dự án Visual LED sân khấu lớn, Aftermovie Halloween Party và Nightlife 4K với tiết tấu dựng bắt beat, hiệu ứng VFX chuyển cảnh và chỉnh màu Neon tương phản cao.",
+    projectIds: [
+      "proj-visual-led-adm",
+      "proj-hlw-party-adm",
+      "proj-bar-the-black-anh-duong",
+    ],
+    createdAt: "2026-11-23T11:31:00.000Z",
+  },
+  {
+    id: "cl-talking-head-brand",
+    slug: "thuong-hieu-chuyen-gia",
+    clientName: "Quý Đối Tác Doanh Nghiệp & Thẩm Mỹ",
+    customTitle: "Showreel Talking Head, Thẩm Mỹ & TVC Sản Phẩm — Gia Huy",
+    welcomeMessage:
+      "Tuyển tập các video xây dựng thương hiệu chuyên gia (Talking Head Motion UI), TVC Trang sức Macro 4K và chuỗi video Thẩm mỹ viện / Bác sĩ giúp tối ưu tỷ lệ giữ chân khách hàng.",
+    projectIds: [
+      "proj-mexo-anh-trong",
+      "proj-quick-fish-anh-huy",
+      "proj-tmv-thanh-huong",
+      "proj-ktt-bac",
+      "proj-bs-hoang-lan",
+    ],
+    createdAt: "2026-11-23T11:32:00.000Z",
+  },
+];
 
 declare global {
   // eslint-disable-next-line no-var
   var __PORTFOLIO_PROJECTS__: Project[] | undefined;
   // eslint-disable-next-line no-var
   var __PORTFOLIO_BOOKINGS__: Booking[] | undefined;
+  // eslint-disable-next-line no-var
+  var __PORTFOLIO_CLIENT_LINKS__: ClientShareLink[] | undefined;
 }
 
 function getWritableDataDir(): string | null {
@@ -56,7 +103,7 @@ export function getProjects(): Project[] {
       try {
         fs.writeFileSync(filePath, JSON.stringify(INITIAL_PROJECTS, null, 2), "utf-8");
       } catch {
-        // Ignore write error on read-only fs
+        // Ignore
       }
     }
   }
@@ -75,7 +122,7 @@ export function saveProjects(projects: Project[]): Project[] {
       const filePath = path.join(dir, "projects.json");
       fs.writeFileSync(filePath, JSON.stringify(projects, null, 2), "utf-8");
     } catch (err) {
-      console.warn("[LOG LƯU TRỮ] Ghi file projects.json thất bại, đã lưu trong bộ nhớ:", err);
+      console.warn("[LOG LƯU TRỮ] Ghi file projects.json thất bại:", err);
     }
   }
   return projects;
@@ -123,4 +170,48 @@ export function saveBookings(bookings: Booking[]): Booking[] {
     }
   }
   return bookings;
+}
+
+export function getClientLinks(): ClientShareLink[] {
+  const dir = getWritableDataDir();
+  if (dir) {
+    const filePath = path.join(dir, "client-links.json");
+    if (fs.existsSync(filePath)) {
+      try {
+        const raw = fs.readFileSync(filePath, "utf-8");
+        const parsed = JSON.parse(raw) as ClientShareLink[];
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          global.__PORTFOLIO_CLIENT_LINKS__ = parsed;
+          return parsed;
+        }
+      } catch {
+        // fallback
+      }
+    } else {
+      try {
+        fs.writeFileSync(filePath, JSON.stringify(INITIAL_CLIENT_LINKS, null, 2), "utf-8");
+      } catch {
+        // Ignore
+      }
+    }
+  }
+
+  if (!global.__PORTFOLIO_CLIENT_LINKS__) {
+    global.__PORTFOLIO_CLIENT_LINKS__ = [...INITIAL_CLIENT_LINKS];
+  }
+  return global.__PORTFOLIO_CLIENT_LINKS__;
+}
+
+export function saveClientLinks(links: ClientShareLink[]): ClientShareLink[] {
+  global.__PORTFOLIO_CLIENT_LINKS__ = links;
+  const dir = getWritableDataDir();
+  if (dir) {
+    try {
+      const filePath = path.join(dir, "client-links.json");
+      fs.writeFileSync(filePath, JSON.stringify(links, null, 2), "utf-8");
+    } catch {
+      // Ignore
+    }
+  }
+  return links;
 }
