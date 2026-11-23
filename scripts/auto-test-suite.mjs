@@ -38,8 +38,8 @@ async function runTests() {
     "Gia Huy",
     "editor.cicimeo@gmail.com",
     "0357 933 106",
-    "Porsche Vietnam",
-    "Vogue Singapore",
+    "MEXO Group",
+    "94Farm",
   ];
   for (const t of requiredTexts) {
     if (!homeHtml.includes(t)) {

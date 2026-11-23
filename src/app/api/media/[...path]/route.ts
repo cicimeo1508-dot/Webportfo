@@ -30,16 +30,33 @@ function getMimeType(filename: string): string {
   }
 }
 
+function resolveMediaPath(segments: string[]): string | null {
+  const safeSegments = segments.map((s) => path.basename(decodeURIComponent(s)));
+
+  // 1. Ưu tiên tìm trong f:\AI\public\uploads (bao gồm thư mục con port-stills)
+  const uploadsPath = path.join(process.cwd(), "public", "uploads", ...safeSegments);
+  if (fs.existsSync(uploadsPath) && fs.statSync(uploadsPath).isFile()) {
+    return uploadsPath;
+  }
+
+  // 2. Hỗ trợ đọc trực tiếp từ ổ đĩa nguồn I:\PORT của Gia Huy
+  const portDrivePath = path.join("I:\\PORT", ...safeSegments);
+  if (fs.existsSync(portDrivePath) && fs.statSync(portDrivePath).isFile()) {
+    return portDrivePath;
+  }
+
+  return null;
+}
+
 export async function GET(
   request: NextRequest,
   { params }: { params: { path: string[] } }
 ) {
   try {
     const segments = params.path || [];
-    const safeSegments = segments.map((s) => path.basename(decodeURIComponent(s)));
-    const filePath = path.join(process.cwd(), "public", "uploads", ...safeSegments);
+    const filePath = resolveMediaPath(segments);
 
-    if (!fs.existsSync(filePath)) {
+    if (!filePath) {
       return new NextResponse("File Not Found", { status: 404 });
     }
 

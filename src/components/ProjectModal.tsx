@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -12,6 +12,7 @@ import {
   CheckCircle2,
   Sparkles,
   ExternalLink,
+  Play,
 } from "lucide-react";
 import { Project } from "@/types/portfolio";
 import { SOFTWARE_LIST, SoftwareSvgIcon } from "@/components/SoftwareIcons";
@@ -21,8 +22,18 @@ interface ProjectModalProps {
   onClose: () => void;
 }
 
+const FRAME_PERCENTAGES: Record<string, number> = {
+  "1": 0.12,
+  "2": 0.27,
+  "3": 0.42,
+  "4": 0.57,
+  "5": 0.72,
+  "6": 0.86,
+};
+
 export function ProjectModal({ project, onClose }: ProjectModalProps) {
   const [activeImage, setActiveImage] = useState<string | null>(null);
+  const videoRef = useRef<HTMLVideoElement | null>(null);
 
   useEffect(() => {
     if (project) {
@@ -43,6 +54,17 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [onClose]);
+
+  const handleJumpToHighlight = (imgUrl: string) => {
+    setActiveImage(imgUrl);
+    const match = imgUrl.match(/frame-(\d)\.jpg$/);
+    if (match && videoRef.current && videoRef.current.duration) {
+      const pct = FRAME_PERCENTAGES[match[1]] || 0.25;
+      videoRef.current.currentTime = videoRef.current.duration * pct;
+      videoRef.current.play().catch(() => {});
+      videoRef.current.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+  };
 
   return (
     <AnimatePresence>
@@ -111,6 +133,7 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
                   }`}
                 >
                   <video
+                    ref={videoRef}
                     key={project.videoUrl}
                     src={project.videoUrl}
                     poster={project.thumbnailUrl}
@@ -203,46 +226,68 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
                 </div>
               </div>
 
-              {/* Behind-The-Scenes & Color Stills Gallery */}
+              {/* Extracted Highlight Moments & Stills Gallery */}
               {project.gallery && project.gallery.length > 0 && (
                 <div className="space-y-4 pt-4 border-t border-black/5 dark:border-white/10">
-                  <div className="flex items-center justify-between">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                     <span className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold uppercase tracking-wider text-apple-text dark:text-white">
                       <Images className="w-4 h-4 text-apple-blue" />
-                      <span>Bộ Sưu Tập Stills & Hình Ảnh Hậu Trường ({project.gallery.length})</span>
+                      <span>
+                        Cắt Cảnh Highlight Đặc Sắc Từ Video ({project.gallery.length} Khoảnh Khắc)
+                      </span>
+                    </span>
+                    <span className="text-xs text-apple-gray dark:text-zinc-400">
+                      Bấm vào từng ảnh để xem chi tiết hoặc tua nhanh Video đến đúng phân cảnh Highlight
                     </span>
                   </div>
 
-                  {/* Active Large Still Preview */}
+                  {/* Active Large Highlight Preview */}
                   {activeImage && (
-                    <div className="relative w-full aspect-video max-h-[380px] rounded-2xl overflow-hidden bg-zinc-900 border border-black/10 dark:border-white/15">
+                    <div
+                      className={`relative w-full rounded-2xl overflow-hidden bg-zinc-950 border border-black/10 dark:border-white/15 mx-auto ${
+                        project.aspectRatio === "9:16"
+                          ? "max-w-sm aspect-[9/16] max-h-[440px]"
+                          : "aspect-video max-h-[420px]"
+                      }`}
+                    >
                       <img
                         src={activeImage}
-                        alt="Color Still Preview"
-                        className="w-full h-full object-cover"
+                        alt="Highlight Still Preview"
+                        className="w-full h-full object-contain"
                       />
                     </div>
                   )}
 
-                  {/* Thumbnails Selector */}
-                  <div className="grid grid-cols-3 sm:grid-cols-4 gap-3">
+                  {/* Highlight Thumbnails Grid */}
+                  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
                     {project.gallery.map((imgUrl, idx) => (
-                      <button
+                      <div
                         key={`${imgUrl}-${idx}`}
-                        type="button"
-                        onClick={() => setActiveImage(imgUrl)}
-                        className={`relative aspect-video rounded-xl overflow-hidden border-2 transition-all ${
+                        onClick={() => handleJumpToHighlight(imgUrl)}
+                        className={`group cursor-pointer relative rounded-xl overflow-hidden border-2 transition-all bg-zinc-900 ${
+                          project.aspectRatio === "9:16"
+                            ? "aspect-[9/14]"
+                            : "aspect-video"
+                        } ${
                           activeImage === imgUrl
                             ? "border-apple-blue scale-[1.02] shadow-md"
-                            : "border-transparent opacity-70 hover:opacity-100"
+                            : "border-transparent opacity-80 hover:opacity-100"
                         }`}
                       >
                         <img
                           src={imgUrl}
-                          alt={`Still ${idx + 1}`}
-                          className="w-full h-full object-cover"
+                          alt={`Highlight ${idx + 1}`}
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                         />
-                      </button>
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent flex items-end justify-between p-2">
+                          <span className="text-[10px] font-bold text-white px-2 py-0.5 rounded-full bg-black/60 backdrop-blur-md">
+                            Highlight #{idx + 1}
+                          </span>
+                          <span className="w-6 h-6 rounded-full bg-apple-blue text-white flex items-center justify-center shadow-sm">
+                            <Play className="w-3 h-3 fill-current ml-0.5" />
+                          </span>
+                        </div>
+                      </div>
                     ))}
                   </div>
                 </div>
