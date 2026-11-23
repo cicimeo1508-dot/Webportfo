@@ -53,8 +53,12 @@ export function DynamicDock() {
           href="/"
           className="flex items-center gap-1.5 pl-1.5 pr-1.5 sm:pl-2 sm:pr-2.5 py-1 rounded-full hover:bg-black/5 dark:hover:bg-white/10 transition-colors shrink-0"
         >
-          <span className="relative flex h-6 w-6 items-center justify-center rounded-full bg-gradient-to-tr from-apple-blue to-sky-400 text-white text-xs font-bold shadow-sm">
-            GH
+          <span className="relative flex h-6 w-6 items-center justify-center rounded-full overflow-hidden bg-gradient-to-tr from-apple-blue/20 to-sky-400/30 ring-1 ring-white/50 shadow-sm">
+            <img
+              src="/portrait-giahuy.png"
+              alt={SITE_CONFIG.name}
+              className="w-full h-full object-cover object-top"
+            />
           </span>
           <span className="hidden md:inline-block font-semibold text-sm tracking-tight text-apple-text dark:text-apple-darkText">
             {SITE_CONFIG.name}

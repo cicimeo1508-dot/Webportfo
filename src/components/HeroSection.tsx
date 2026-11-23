@@ -101,9 +101,9 @@ export function HeroSection() {
             {/* Subtle Apple Spatial Grid Lines inside pedestal */}
             <div className="absolute inset-x-8 bottom-6 top-16 rounded-[32px] border border-white/40 dark:border-white/10 pointer-events-none -z-10" />
 
-            {/* Cutout Portrait Image (Transparent Background SVG/PNG with 3D Drop Shadow) */}
+            {/* Cutout Portrait Image (Transparent Background PNG with 3D Drop Shadow) */}
             <motion.img
-              src="/portrait-giahuy.svg"
+              src="/portrait-giahuy.png"
               alt={`Chân dung tách phông của ${SITE_CONFIG.name} - ${SITE_CONFIG.role}`}
               initial={{ scale: 0.92, opacity: 0, y: 16 }}
               animate={{ scale: 1, opacity: 1, y: 0 }}
