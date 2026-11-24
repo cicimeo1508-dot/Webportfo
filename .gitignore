@@ -36,4 +36,6 @@ next-env.d.ts
 # large local uploaded videos (>100MB GitHub limit)
 /public/uploads/*.mp4
 /public/uploads/*.mov
+!/public/uploads/web-videos/*.mp4
+
 
